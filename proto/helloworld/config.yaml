@@ -4,5 +4,5 @@ config_version: 3
 http:
   rules:
     - selector: helloworld.Greeter.SayHello
-      post: /v1/example/sayhello
+      post: /v1/example/echo
       body: "*"

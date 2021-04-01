@@ -13,7 +13,6 @@ import (
 	"io"
 	"net/http"
 
-	extFoo "github.com/Zhangyida183/test-grpc-gateway/proto/foo"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/grpc"
@@ -32,8 +31,8 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_Greeter_SayHello_0(ctx context.Context, marshaler runtime.Marshaler, client extFoo.GreeterClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq extFoo.HelloRequest
+func request_Greeter_SayHello_0(ctx context.Context, marshaler runtime.Marshaler, client GreeterClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq HelloRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -49,8 +48,8 @@ func request_Greeter_SayHello_0(ctx context.Context, marshaler runtime.Marshaler
 
 }
 
-func local_request_Greeter_SayHello_0(ctx context.Context, marshaler runtime.Marshaler, server extFoo.GreeterServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq extFoo.HelloRequest
+func local_request_Greeter_SayHello_0(ctx context.Context, marshaler runtime.Marshaler, server GreeterServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq HelloRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -70,7 +69,7 @@ func local_request_Greeter_SayHello_0(ctx context.Context, marshaler runtime.Mar
 // UnaryRPC     :call GreeterServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterGreeterHandlerFromEndpoint instead.
-func RegisterGreeterHandlerServer(ctx context.Context, mux *runtime.ServeMux, server extFoo.GreeterServer) error {
+func RegisterGreeterHandlerServer(ctx context.Context, mux *runtime.ServeMux, server GreeterServer) error {
 
 	mux.Handle("POST", pattern_Greeter_SayHello_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
@@ -126,15 +125,15 @@ func RegisterGreeterHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeM
 // RegisterGreeterHandler registers the http handlers for service Greeter to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
 func RegisterGreeterHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterGreeterHandlerClient(ctx, mux, extFoo.NewGreeterClient(conn))
+	return RegisterGreeterHandlerClient(ctx, mux, NewGreeterClient(conn))
 }
 
 // RegisterGreeterHandlerClient registers the http handlers for service Greeter
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "extFoo.GreeterClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "extFoo.GreeterClient"
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "GreeterClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "GreeterClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "extFoo.GreeterClient" to call the correct interceptors.
-func RegisterGreeterHandlerClient(ctx context.Context, mux *runtime.ServeMux, client extFoo.GreeterClient) error {
+// "GreeterClient" to call the correct interceptors.
+func RegisterGreeterHandlerClient(ctx context.Context, mux *runtime.ServeMux, client GreeterClient) error {
 
 	mux.Handle("POST", pattern_Greeter_SayHello_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
@@ -160,7 +159,7 @@ func RegisterGreeterHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 }
 
 var (
-	pattern_Greeter_SayHello_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "example", "sayhello"}, ""))
+	pattern_Greeter_SayHello_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "example", "echo"}, ""))
 )
 
 var (
