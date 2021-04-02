@@ -26,7 +26,7 @@ func (s *server) SayHello(ctx context.Context, in *gw.HelloRequest) (*gw.HelloRe
 
 func main() {
 	// Create a listener on TCP port
-	lis, err := net.Listen("tcp", ":3000")
+	lis, err := net.Listen("tcp", "localhost:3000")
 	if err != nil {
 		log.Fatalln("Failed to listen:", err)
 	}
